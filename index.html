@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Study Mentor</title>
+  <link rel="icon" type="image/png" href="images/kaggle capstone project logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="google_styles.css?v=13">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-mode">
+  <div class="app-container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="images/kaggle capstone project logo.png" alt="YSM Logo" class="logo-icon"
+          style="background: transparent; box-shadow: none; object-fit: contain;">
+        <span class="logo-text">Your Study Mentor</span>
+      </div>
+
+      <nav class="nav-menu">
+        <li class="nav-item active" data-panel="dashboard">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item" data-panel="doubt-solver">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Your Professor</span>
+          </a>
+        </li>
+        <li class="nav-item" data-panel="videos">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-play"></i>
+            <span>Video Lectures</span>
+          </a>
+        </li>
+        <li class="nav-item" data-panel="focus-hub">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span>Focus Hub</span>
+          </a>
+        </li>
+        <li class="nav-item" data-panel="planner">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Study Planner</span>
+          </a>
+        </li>
+        <li class="nav-item" data-panel="resources">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Vault Resources</span>
+          </a>
+        </li>
+      </nav>
+
+      <div class="sidebar-footer">
+      </div>
+    </aside>
+
+    <!-- Main Display Shell -->
+    <main class="main-content">
+
+      <!-- Sticky Top Header -->
+      <header class="top-header">
+        <div class="welcome-widget">
+          <h1 id="welcome-text">Hi, Scholar!</h1>
+        </div>
+        <div class="header-right">
+          <div class="clock-widget">
+            <i class="fa-regular fa-clock"></i>
+            <span id="live-time">10:00:00 AM</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- PANELS (Single Page Router Targets) -->
+
+      <!-- PANEL: DASHBOARD -->
+      <div id="panel-dashboard" class="content-panel active">
+        <div class="grid-2col">
+          <div class="glass-card db-hero">
+            <div class="db-hero-info">
+              <h2>Your Personal AI Study Mentor</h2>
+              <p style="max-width: none;">Your Study Mentor is an all-in-one AI platform for all types of students and
+                their problems. You can use this platform for your doubts, video lectures, focus hub, study planner, and
+                vault resources. With the help of the Gemini integrated AI bot and video lectures, you can clear all
+                your doubts and get help in your studies. This platform is designed to make your learning process easier
+                and more enjoyable.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="db-quick-tools grid-2col">
+          <div class="glass-card">
+            <h3 class="db-title"><i class="fa-solid fa-list-check"></i> Today's Planner Highlights</h3>
+            <div class="todo-list" id="db-todo-preview" style="max-height: 250px;">
+              <!-- Dynamic planner items show here -->
+              <p class="text-secondary" style="font-size: 0.9rem; text-align: center; padding: 20px 0;">No tasks for
+                today. Go ahead and add some!</p>
+            </div>
+          </div>
+          <div class="glass-card">
+            <h3 class="db-title"><i class="fa-solid fa-award"></i> Active Study Session</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-value" id="stat-sessions">0</div>
+                <div class="stat-label">Focus Intervals</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="stat-doubts">0</div>
+                <div class="stat-label">Doubts Resolved</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="stat-tasks">0%</div>
+                <div class="stat-label">Tasks Completed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: YOUR PROFESSOR -->
+      <div id="panel-doubt-solver" class="content-panel">
+        <div class="chat-container">
+
+          <!-- Chat Box -->
+          <div class="glass-card chat-main">
+            <div class="chat-header-bar">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="images/gemini logo.png" alt="Google Gemini Logo" style="width: 175px; height: 75px;">
+                <div>
+                  <h4 style=" font-weight: 600;">Your Professor</h4>
+                  <span style="font-size: 0.75rem; color: var(--text-secondary);">Google Gemini-Powered Study
+                    Mentor</span>
+                </div>
+              </div>
+              <button class="api-status-btn" id="btn-clear-chat" style="padding: 6px 12px;">
+                <i class="fa-regular fa-trash-can"></i> Clear
+              </button>
+            </div>
+
+            <div class="chat-messages" id="chat-messages-box">
+              <!-- Dynamically populated doubt chat messages -->
+            </div>
+
+            <div class="chat-input-bar">
+              <input type="text" class="chat-input" id="doubt-input-field"
+                placeholder="Ask any study doubt or question here...">
+              <button class="chat-send-btn" id="doubt-send-btn">
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANEL: VIDEO RECOMMENDATIONS -->
+      <div id="panel-videos" class="content-panel">
+        <div class="search-filter-row">
+          <div class="video-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="video-search-input" id="video-search"
+              placeholder="Search topics (e.g. Newton's laws, chemical reactions, algebra, JEE vectors)...">
+          </div>
+          <select class="filter-select" id="video-source-filter">
+            <option value="all">All Channels</option>
+            <option value="physicswallah">Physics Wallah</option>
+            <option value="khanacademy">Khan Academy</option>
+            <option value="crashcourse">CrashCourse</option>
+          </select>
+          <select class="filter-select" id="video-level-filter">
+            <option value="all">All Levels</option>
+            <option value="primary">Primary School</option>
+            <option value="high">High School</option>
+            <option value="competitive">Competitive Exams</option>
+          </select>
+        </div>
+
+        <div class="video-grid" id="video-cards-grid">
+          <!-- Recommended videos will be loaded here -->
+        </div>
+      </div>
+
+      <!-- PANEL: FOCUS HUB -->
+      <div id="panel-focus-hub" class="content-panel">
+        <div class="focus-container">
+
+          <!-- Pomodoro Control Screen -->
+          <div class="glass-card focus-main-panel">
+            <div class="timer-presets">
+              <button class="btn-preset active" data-minutes="25" data-phase="work">Study Block (25m)</button>
+              <button class="btn-preset" data-minutes="5" data-phase="short-break">Short Break (5m)</button>
+              <button class="btn-preset" data-minutes="15" data-phase="long-break">Long Break (15m)</button>
+              <div class="custom-timer-container"
+                style="display: inline-flex; align-items: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 4px; gap: 5px;">
+                <input type="number" id="custom-timer-input" min="1" max="180" placeholder="Min"
+                  style="width: 60px; background: transparent; border: none; color: white; padding: 8px; text-align: center; outline: none; font-family: inherit; font-size: 0.9rem;">
+                <button class="btn-preset" id="btn-custom-timer" style="margin: 0; padding: 8px 16px;">Set</button>
+              </div>
+            </div>
+
+            <div class="timer-display-wrapper">
+              <svg class="timer-svg">
+                <circle class="timer-track-circle" cx="140" cy="140" r="130"></circle>
+                <circle class="timer-progress-circle" id="timer-progress" cx="140" cy="140" r="130"></circle>
+              </svg>
+              <div class="timer-text-container">
+                <div class="timer-clock" id="timer-clock-digits">25:00</div>
+                <div class="timer-phase" id="timer-phase-title">Work Time</div>
+              </div>
+            </div>
+
+            <div class="timer-controls">
+              <button class="btn-timer primary" id="btn-timer-toggle" title="Play/Pause Study"><i
+                  class="fa-solid fa-play"></i></button>
+              <button class="btn-timer" id="btn-timer-reset" title="Reset Timer"><i
+                  class="fa-solid fa-rotate-left"></i></button>
+              <button class="btn-timer" id="btn-timer-fullscreen" title="Distraction-Free Overlay"><i
+                  class="fa-solid fa-expand"></i></button>
+            </div>
+          </div>
+
+          <!-- Ambient Sound mixer -->
+          <div class="glass-card ambient-panel">
+            <h3><i class="fa-solid fa-sliders"></i> Focus Soundtrack Mixer</h3>
+            <div class="ambient-list">
+
+              <!-- Rain -->
+              <div class="ambient-card" id="sound-rain">
+                <div class="ambient-info">
+                  <div class="ambient-icon"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                  <span class="ambient-name">Gentle Rain</span>
+                </div>
+                <div class="sound-control-wrap">
+                  <button class="btn-ambient-play" data-sound="rain"><i class="fa-solid fa-play"></i></button>
+                  <input type="range" class="ambient-slider" data-sound="rain" min="0" max="1" step="0.05" value="0.5">
+                </div>
+              </div>
+
+              <!-- Forest -->
+              <div class="ambient-card" id="sound-forest">
+                <div class="ambient-info">
+                  <div class="ambient-icon"><i class="fa-solid fa-tree"></i></div>
+                  <span class="ambient-name">Forest Stream</span>
+                </div>
+                <div class="sound-control-wrap">
+                  <button class="btn-ambient-play" data-sound="forest"><i class="fa-solid fa-play"></i></button>
+                  <input type="range" class="ambient-slider" data-sound="forest" min="0" max="1" step="0.05"
+                    value="0.5">
+                </div>
+              </div>
+
+              <!-- Coffee Shop -->
+              <div class="ambient-card" id="sound-cafe">
+                <div class="ambient-info">
+                  <div class="ambient-icon"><i class="fa-solid fa-mug-saucer"></i></div>
+                  <span class="ambient-name">Coffee Shop</span>
+                </div>
+                <div class="sound-control-wrap">
+                  <button class="btn-ambient-play" data-sound="cafe"><i class="fa-solid fa-play"></i></button>
+                  <input type="range" class="ambient-slider" data-sound="cafe" min="0" max="1" step="0.05" value="0.5">
+                </div>
+              </div>
+
+              <!-- Jazz Music -->
+              <div class="ambient-card" id="sound-jazz">
+                <div class="ambient-info">
+                  <div class="ambient-icon"><i class="fa-solid fa-music"></i></div>
+                  <span class="ambient-name">Smooth Jazz</span>
+                </div>
+                <div class="sound-control-wrap">
+                  <button class="btn-ambient-play" data-sound="jazz"><i class="fa-solid fa-play"></i></button>
+                  <input type="range" class="ambient-slider" data-sound="jazz" min="0" max="1" step="0.05" value="0.5">
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANEL: STUDY PLANNER & CALENDAR -->
+      <div id="panel-planner" class="content-panel">
+        <div class="planner-layout">
+
+          <!-- Calendar Card -->
+          <div class="glass-card calendar-card">
+            <div class="calendar-header">
+              <span class="calendar-month-year" id="calendar-title">June 2026</span>
+              <div style="display: flex; gap: 8px;">
+                <button class="calendar-nav-btn" id="calendar-prev-month"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+                <button class="calendar-nav-btn" id="calendar-next-month"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+
+            <div class="calendar-grid" id="calendar-days-grid">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+
+          <!-- Checklist & Scheduler details -->
+          <div class="glass-card todo-card">
+            <div class="todo-header">
+              <h3 id="planner-date-title" style="font-family: var(--font-display); font-size: 1.1rem;">Study Goals for
+                Today</h3>
+              <button class="api-status-btn" id="btn-add-todo" style="padding: 6px 12px;">
+                <i class="fa-solid fa-plus"></i> New Goal
+              </button>
+            </div>
+
+            <div class="todo-list" id="planner-todo-list">
+              <!-- Dynamically populated study tasks -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANEL: VAULT RESOURCES -->
+      <div id="panel-resources" class="content-panel">
+        <div class="res-categories">
+          <button class="res-btn active" data-res-tab="all">All Materials</button>
+          <button class="res-btn" data-res-tab="primary">Primary Classes</button>
+          <button class="res-btn" data-res-tab="high">High School Guides</button>
+          <button class="res-btn" data-res-tab="competitive">Competitive Formulas</button>
+        </div>
+
+        <div class="resources-grid" id="resource-cards-grid">
+          <!-- Dynamically populated Vault items -->
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+     MODALS OVERLAY AND WINDOWS
+     ========================================================================== -->
+
+
+  <!-- MODAL: ADD GOAL / EVENT -->
+  <div class="modal-overlay" id="todo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Create Study Goal</h3>
+        <button class="btn-close-modal" id="close-todo-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="todo-title-input">Goal Title</label>
+          <input type="text" class="form-input" id="todo-title-input"
+            placeholder="e.g. Read Physics Wallah Force chapter & resolve doubts">
+        </div>
+
+        <div class="form-group">
+          <label for="todo-date-input">Target Date</label>
+          <input type="date" class="form-input" id="todo-date-input">
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-form cancel" id="todo-cancel-btn">Cancel</button>
+          <button class="btn-form save" id="todo-save-btn">Create Goal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: YOUTUBE EXPLICIT VIDEO PLAYER -->
+  <div class="modal-overlay" id="video-modal">
+    <div class="modal-content large">
+      <div class="modal-header">
+        <h3 id="video-player-title">Educational Lecture</h3>
+        <button class="btn-close-modal" id="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="padding: 0; aspect-ratio: 16/9; background: #000;">
+        <iframe id="video-iframe" style="width: 100%; height: 100%; border: none;" allowfullscreen
+          allow="autoplay"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISTRACTION-FREE OVERLAY (FOCUS MODE FULLSCREEN) -->
+  <div class="focus-overlay" id="timer-fullscreen-overlay">
+    <div class="focus-overlay-timer" id="overlay-clock-digits">25:00</div>
+    <div class="timer-phase" id="overlay-phase-title" style="margin-bottom: 40px; font-size: 1.2rem;">Work Session</div>
+    <button class="api-status-btn" id="btn-exit-overlay"
+      style="padding: 12px 24px; font-size: 1rem; border-radius: 30px;">
+      <i class="fa-solid fa-compress"></i> Exit Focus Mode
+    </button>
+  </div>
+
+  <!-- MAIN SCRIPT ORCHESTRATOR -->
+  <script type="module" src="app.js?v=11"></script>
+</body>
+
+</html>
